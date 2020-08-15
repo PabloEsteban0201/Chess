@@ -1,20 +1,53 @@
 package modelo;
 
-public class Movimiento { 
-	private Jugador player; 
-	private Coordenada start; 
-	private Coordenada end; 
-	private Ficha pieceMoved; 
-	private Ficha pieceKilled; 
-	private boolean castlingMove = false; 
+import modelo.fichas.Ficha;
 
-	public Movimiento(Jugador player, Coordenada start, Coordenada end) 
-	{ 
-		this.player = player; 
+public class Movimiento { 
+	
+	private Coordenada start; 
+	private Coordenada end;
+	private boolean isCapture = false;
+	private boolean castlingMove = false; 
+	
+	
+	/**
+	 * Constructor de movimiento 
+	 * @param start coordenada inicial
+	 * @param end coordenada fianl
+	 */
+	public Movimiento(Coordenada start, Coordenada end, boolean capture) { 
 		this.start = start; 
-		this.end = end; 
-		this.pieceMoved = start.getPiece(); 
+		this.end = end;
+		isCapture = capture;
 	} 
+	
+	
+	
+	public Coordenada getStart() {
+		return start;
+	}
+
+	public void setStart(Coordenada start) {
+		this.start = start;
+	}
+
+	public Coordenada getEnd() {
+		return end;
+	}
+
+	public void setEnd(Coordenada end) {
+		this.end = end;
+	}
+
+	public boolean isCapture() {
+		return isCapture;
+	}
+
+	public void setCapture(boolean isCapture) {
+		this.isCapture = isCapture;
+	}
+
+	
 
 	public boolean isCastlingMove() 
 	{ 

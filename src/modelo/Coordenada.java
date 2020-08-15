@@ -3,9 +3,13 @@ package modelo;
 public class Coordenada { 
 	private int x; 
 	private int y; 
-
-	public Coordenada(int y, int x) 
-	{ 
+	
+	/**
+	 * Constructor de coordenada
+	 * @param y entero para la matriz en eje y
+	 * @param x entero para la mattriz en eje x
+	 */
+	public Coordenada(int x,int y) { 
 		this.setX(x); 
 		this.setY(y); 
 	} 

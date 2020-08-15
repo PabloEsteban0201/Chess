@@ -1,11 +1,14 @@
 package modelo;
 
+import modelo.fichas.Ficha;
+import modelo.fichas.Rey;
+
 public class Juego { 
 	private Jugador[] players; 
 	private Tablero board; 
 	private Jugador currentTurn; 
 	private GameStatus status; 
-	private List<Movimiento> movesPlayed; 
+
 
 	private void initialize(Jugador p1, Jugador p2) 
 	{ 
@@ -14,100 +17,15 @@ public class Juego {
 
 		board.resetBoard(); 
 
-		if (p1.isWhiteSide()) { 
+		if (p1.white) { 
 			this.currentTurn = p1; 
 		} 
 		else { 
 			this.currentTurn = p2; 
 		} 
 
-		movesPlayed.clear(); 
 	} 
 
-	public boolean isEnd() 
-	{ 
-		return this.getStatus() != GameStatus.ACTIVE; 
-	} 
-
-	public boolean getStatus() 
-	{ 
-		return this.status; 
-	} 
-
-	public void setStatus(GameStatus status) 
-	{ 
-		this.status = status; 
-	} 
-
-	public boolean playerMove(Jugador player, int startX, 
-								int startY, int endX, int endY) 
-	{ 
-		Coordenada startBox = board.getBox(startX, startY); 
-		Coordenada endBox = board.getBox(startY, endY); 
-		Movimiento move = new Movimiento(player, startBox, endBox); 
-		return this.makeMove(move, player); 
-	} 
-
-	private boolean makeMove(Movimiento move, Jugador player) 
-	{ 
-		Ficha sourcePiece = move.getStart().getPiece(); 
-		if (sourcePiece == null) { 
-			return false; 
-		} 
-
-		// valid player 
-		if (player != currentTurn) { 
-			return false; 
-		} 
-
-		if (sourcePiece.isWhite() != player.isWhiteSide()) { 
-			return false; 
-		} 
-
-		// valid move? 
-		if (!sourcePiece.canMove(board, move.getStart(), 
-											move.getEnd())) { 
-			return false; 
-		} 
-
-		// kill? 
-		Ficha destPiece = move.getStart().getPiece(); 
-		if (destPiece != null) { 
-			destPiece.setKilled(true); 
-			move.setPieceKilled(destPiece); 
-		} 
-
-		// castling? 
-		if (sourcePiece != null && sourcePiece instanceof Rey 
-			&& sourcePiece.isCastlingMove()) { 
-			move.setCastlingMove(true); 
-		} 
-
-		// store the move 
-		movesPlayed.add(move); 
-
-		// move piece from the stat box to end box 
-		move.getEnd().setPiece(move.getStart().getPiece()); 
-		move.getStart.setPiece(null); 
-
-		if (destPiece != null && destPiece instanceof Rey) { 
-			if (player.isWhiteSide()) { 
-				this.setStatus(GameStatus.WHITE_WIN); 
-			} 
-			else { 
-				this.setStatus(GameStatus.BLACK_WIN); 
-			} 
-		} 
-
-		// set the current turn to the other player 
-		if (this.currentTurn == players[0]) { 
-			this.currentTurn = players[1]; 
-		} 
-		else { 
-			this.currentTurn = players[0]; 
-		} 
-
-		return true; 
-	} 
+	
 } 
 

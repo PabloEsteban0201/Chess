@@ -1,34 +1,34 @@
 package modelo;
 
-public abstract class Jugador { 
-	public boolean whiteSide; 
-	public boolean humanPlayer; 
+public class Jugador { 
+	
+	private String name;
+	
+	public boolean white=false;
+	
+	public Jugador(String name,boolean white) {
+		this.name=name;
+		this.white=white;
+	}
 
-	public boolean isWhiteSide() 
-	{ 
-		return this.whiteSide == true; 
-	} 
-	public boolean isHumanPlayer() 
-	{ 
-		return this.humanPlayer == true; 
-	} 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isWhite() {
+		return white;
+	}
+
+	public void setWhite(boolean white) {
+		this.white = white;
+	}
+	
+	
 } 
 
-public class HumanPlayer extends Jugador { 
 
-	public HumanPlayer(boolean whiteSide) 
-	{ 
-		this.whiteSide = whiteSide; 
-		this.humanPlayer = true; 
-	} 
-} 
-
-public class ComputerPlayer extends Jugador { 
-
-	public ComputerPlayer(boolean whiteSide) 
-	{ 
-		this.whiteSide = whiteSide; 
-		this.humanPlayer = false; 
-	} 
-} 
 
